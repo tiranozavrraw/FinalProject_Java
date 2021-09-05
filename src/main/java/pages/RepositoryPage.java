@@ -1,4 +1,9 @@
 package pages;
 
-public class RepositoryPage {
+import org.openqa.selenium.WebDriver;
+
+public class RepositoryPage extends AbstractPage{
+    protected RepositoryPage(WebDriver driver) {
+        super(driver);
+    }
 }
