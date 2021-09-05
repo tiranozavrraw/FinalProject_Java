@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.Utils;
 
 public class LoginPage extends AbstractPage{
 
@@ -19,7 +20,11 @@ public class LoginPage extends AbstractPage{
         super(driver);
     }
 
-//    public LoggedInMainPage login(){
-//        return LoggedInMainPage;
-//    }
+    public LoggedInMainPage login(){
+        loginField.sendKeys(Utils.getLogin());
+        passwordFiled.sendKeys(Utils.getPassword());
+        signInButton.click();
+
+        return new LoggedInMainPage(getDriver());
+    }
 }

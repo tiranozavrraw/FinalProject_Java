@@ -8,7 +8,12 @@ public class LoginTest extends BaseTest{
     @Test
     public void testLogin(){
         MainPage mainPage = new MainPage(driver);
-        mainPage.open().clickSignInButton();
+        mainPage.open().clickSignInButton().login();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
