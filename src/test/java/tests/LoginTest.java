@@ -15,13 +15,7 @@ public class LoginTest extends BaseTest{
         loginPage.login();
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         loggedInMainPage.clickUserIcon();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         String signedInAs = loggedInMainPage.getSignedInAsText();
-
         Assertions.assertEquals("tiranozavrraw", signedInAs);
     }
 

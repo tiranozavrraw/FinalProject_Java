@@ -17,6 +17,7 @@ public class LoggedInMainPage extends AbstractPage{
 
     public void clickUserIcon() {
         userIcon.click();
+        waitUntilVisible(signedInAs);
     }
 
     public String getSignedInAsText() {
