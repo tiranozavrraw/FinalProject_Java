@@ -24,7 +24,9 @@ public class LoginPage extends AbstractPage{
         loginField.sendKeys(Utils.getLogin());
         passwordFiled.sendKeys(Utils.getPassword());
         signInButton.click();
+        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(getDriver());
+        waitUntilVisible(loggedInMainPage.userIcon);
 
-        return new LoggedInMainPage(getDriver());
+        return loggedInMainPage;
     }
 }

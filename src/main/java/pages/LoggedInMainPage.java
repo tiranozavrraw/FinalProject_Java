@@ -10,6 +10,8 @@ public class LoggedInMainPage extends AbstractPage{
     WebElement userIcon;
     @FindBy(xpath = "//a/strong")
     WebElement signedInAs;
+    @FindBy(xpath = "//a[contains(@data-hydro-click,'NEW_REPOSITORY_BUTTON')]")
+    WebElement newRepositoryButton;
 
     public LoggedInMainPage(WebDriver driver) {
         super(driver);
@@ -22,5 +24,10 @@ public class LoggedInMainPage extends AbstractPage{
 
     public String getSignedInAsText() {
         return signedInAs.getText();
+    }
+
+    public CreateRepositoryPage clickNewRepositoryButton() {
+        newRepositoryButton.click();
+        return new CreateRepositoryPage();
     }
 }
