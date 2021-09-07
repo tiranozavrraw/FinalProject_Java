@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pages.CreateRepositoryPage;
 import pages.LoggedInMainPage;
 import pages.LoginPage;
 import pages.MainPage;
@@ -20,5 +21,18 @@ public class RepositoryTest extends BaseTest{
         }
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         loggedInMainPage.clickNewRepositoryButton();
+        CreateRepositoryPage createRepositoryPage = new CreateRepositoryPage(driver);
+        createRepositoryPage.enterRepositoryName("TEST11");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        createRepositoryPage.clickCreateRepository();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

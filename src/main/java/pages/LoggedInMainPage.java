@@ -28,6 +28,6 @@ public class LoggedInMainPage extends AbstractPage{
 
     public CreateRepositoryPage clickNewRepositoryButton() {
         newRepositoryButton.click();
-        return new CreateRepositoryPage();
+        return new CreateRepositoryPage(getDriver());
     }
 }
