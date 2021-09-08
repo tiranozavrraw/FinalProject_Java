@@ -2,10 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pages.CreateRepositoryPage;
-import pages.LoggedInMainPage;
-import pages.LoginPage;
-import pages.MainPage;
+import pages.*;
 
 public class RepositoryTest extends BaseTest{
 
@@ -34,5 +31,30 @@ public class RepositoryTest extends BaseTest{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void findCreatedRepository() {
+        MainPage mainPage = new MainPage(driver);
+        LoginPage loginPage = mainPage.open().clickSignInButton();
+        loginPage.login();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
+        loggedInMainPage.clickYourRepositoryInUserMenu();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
+        repositoriesPage.findAndOpenRepository("TEST11");
+        RepositoryPage repositoryPage = new RepositoryPage(driver);
+        repositoryPage.clickSettings();
+        repositoryPage.DeleteRepository("TEST11");
+
     }
 }

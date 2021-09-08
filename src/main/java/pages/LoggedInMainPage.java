@@ -12,6 +12,8 @@ public class LoggedInMainPage extends AbstractPage{
     WebElement signedInAs;
     @FindBy(xpath = "//a[contains(@data-hydro-click,'NEW_REPOSITORY_BUTTON')]")
     WebElement newRepositoryButton;
+    @FindBy(xpath = "//a[contains(@data-hydro-click, \"YOUR_REPOSITORIES\")]")
+    WebElement yourRepositoriesMenuItem;
 
     public LoggedInMainPage(WebDriver driver) {
         super(driver);
@@ -29,5 +31,11 @@ public class LoggedInMainPage extends AbstractPage{
     public CreateRepositoryPage clickNewRepositoryButton() {
         newRepositoryButton.click();
         return new CreateRepositoryPage(getDriver());
+    }
+
+    public void clickYourRepositoryInUserMenu(){
+        clickUserIcon();
+        yourRepositoriesMenuItem.click();
+
     }
 }
