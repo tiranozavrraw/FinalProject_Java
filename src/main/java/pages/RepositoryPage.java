@@ -8,6 +8,8 @@ import utils.Utils;
 public class RepositoryPage extends AbstractPage{
     @FindBy(xpath = "//span[contains(text(), \"Settings\")]")
     WebElement settings;
+    @FindBy(xpath = "//span[contains(text(), \"Code\")]")
+    WebElement code;
     @FindBy(xpath = "//summary[contains(text(), \"Delete this repository\")]")
     WebElement deleteRepositoryButton;
     @FindBy(xpath = "//input[contains(@aria-label, \"Type in the name of the repository to confirm that you want to delete this repository.\")]")
@@ -21,6 +23,15 @@ public class RepositoryPage extends AbstractPage{
 
     public void clickSettings() {
         settings.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickCode() {
+        code.click();
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
