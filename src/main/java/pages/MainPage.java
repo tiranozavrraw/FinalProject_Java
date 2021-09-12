@@ -19,6 +19,10 @@ public class MainPage extends AbstractPage{
         return this;
     }
 
+    public Boolean checkSignInButtonExist() {
+        return signInButton.isDisplayed();
+    }
+
     public LoginPage clickSignInButton() {
         signInButton.click();
         LoginPage loginPage = new LoginPage(getDriver());

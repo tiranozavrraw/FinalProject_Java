@@ -6,7 +6,7 @@ import pages.LoggedInMainPage;
 import pages.LoginPage;
 import pages.MainPage;
 
-public class LogoutTest extends BaseTest{
+public class LogoutTest extends BaseTest {
     @Test
     public void testLogOut() {
         MainPage mainPage = new MainPage(driver);
@@ -17,5 +17,6 @@ public class LogoutTest extends BaseTest{
         String signedInAs = loggedInMainPage.getSignedInAsText();
         Assertions.assertEquals("tiranozavrraw", signedInAs);
         loggedInMainPage.clickSignOut();
+        Assertions.assertTrue(mainPage.checkSignInButtonExist());
     }
 }
