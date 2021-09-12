@@ -80,9 +80,14 @@ public class RepositoryTest extends BaseTest{
         }
         RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
         repositoriesPage.findAndOpenRepository("TEST11");
+        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
+        Assertions.assertEquals("TEST11", repositoryCodePage.getRepositoryName());
         RepositoryPage repositoryPage = new RepositoryPage(driver);
         repositoryPage.clickSettings();
         repositoryPage.DeleteRepository("TEST11");
+        loggedInMainPage.clickYourRepositoryInUserMenu();
+        repositoriesPage.findRepository("TEST11");
+        Assertions.assertEquals(0, repositoriesPage.getNumberOfSearchResults());
 
     }
 }
