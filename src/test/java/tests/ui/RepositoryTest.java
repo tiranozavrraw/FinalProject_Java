@@ -1,7 +1,6 @@
-package tests;
+package tests.ui;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.*;
 
@@ -32,6 +31,8 @@ public class RepositoryTest extends BaseTest{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
+        Assertions.assertEquals("TEST11", repositoryCodePage.getRepositoryName());
     }
 
     @Test

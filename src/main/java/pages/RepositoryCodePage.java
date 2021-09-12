@@ -9,6 +9,12 @@ public class RepositoryCodePage extends AbstractPage{
     WebElement codeButton;
     @FindBy(xpath = "//clipboard-copy[contains(@data-hydro-click, \"COPY_URL\")]")
     WebElement copyUrl;
+    @FindBy(xpath = "//strong[contains(@itemprop, \"name\")]/a")
+    WebElement repositoryName;
+
+    public String getRepositoryName() {
+        return repositoryName.getText();
+    }
 
     public void clickCodeButton(){
         codeButton.click();

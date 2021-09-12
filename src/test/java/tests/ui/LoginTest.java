@@ -1,14 +1,15 @@
-package tests;
-
+package tests.ui;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pages.LoggedInMainPage;
 import pages.LoginPage;
 import pages.MainPage;
 
-public class LogoutTest extends BaseTest{
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class LoginTest extends BaseTest{
     @Test
-    public void testLogOut() {
+    public void testLogin(){
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = mainPage.open().clickSignInButton();
         loginPage.login();
@@ -16,6 +17,6 @@ public class LogoutTest extends BaseTest{
         loggedInMainPage.clickUserIcon();
         String signedInAs = loggedInMainPage.getSignedInAsText();
         Assertions.assertEquals("tiranozavrraw", signedInAs);
-        loggedInMainPage.clickSignOut();
     }
+
 }
