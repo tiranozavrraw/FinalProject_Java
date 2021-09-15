@@ -54,6 +54,29 @@ public class ApiGetRepositoriesTest {
 
     }
 
+    @Test
+    public void getRepository() throws IOException {
+        HttpGet createRepository = new HttpGet("https://api.github.com/repos/" + Utils.getLogin() + "/" + Utils.getRepositoryName());
+        String login = Utils.getLogin();
+        String token = Utils.getToken();
+        createRepository.addHeader("authorization", basicAuth(login, token));
+        createRepository.addHeader("content-type","application/json; charset=utf-8");
+        //createRepository.addHeader("accept","application/vnd.github.baptiste-preview+json");
+        HttpClient client = HttpClientBuilder.create().build();
+
+        //JSONObject json = new JSONObject();
+        //json.put("name", "TEST13");
+        //var body = json.toString();
+        //createRepository.setEntity(new StringEntity(body));
+
+        HttpResponse response =  client.execute(createRepository);
+        var bytes = response.getEntity().getContent().readAllBytes();
+        String value = new String(bytes, "UTF-8");
+
+        Assertions.assertEquals(200, response.getStatusLine().getStatusCode());
+
+    }
+
     private static String basicAuth(String username, String password) {
         return "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
     }
