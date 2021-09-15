@@ -33,9 +33,6 @@ public class ApiCreateNewRepositoryTest {
             String token = Utils.getToken();
             createRepository.addHeader("authorization", basicAuth(login, token));
             createRepository.addHeader("content-type","application/json");
-//            List<NameValuePair> params = new ArrayList<NameValuePair>();
-//            params.add(new BasicNameValuePair("name", "TEST13"));
-//            createRepository.setEntity(new UrlEncodedFormEntity(params));
             String json = "{\"name\":\"TEST15\"}";
             StringEntity entity = new StringEntity(json);
             createRepository.setEntity(entity);

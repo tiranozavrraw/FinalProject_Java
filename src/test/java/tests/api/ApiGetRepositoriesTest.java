@@ -38,13 +38,7 @@ public class ApiGetRepositoriesTest {
         String token = Utils.getToken();
         createRepository.addHeader("authorization", basicAuth(login, token));
         createRepository.addHeader("content-type","application/json; charset=utf-8");
-        //createRepository.addHeader("accept","application/vnd.github.baptiste-preview+json");
         HttpClient client = HttpClientBuilder.create().build();
-
-        //JSONObject json = new JSONObject();
-        //json.put("name", "TEST13");
-        //var body = json.toString();
-        //createRepository.setEntity(new StringEntity(body));
 
         HttpResponse response =  client.execute(createRepository);
         var bytes = response.getEntity().getContent().readAllBytes();
@@ -61,13 +55,7 @@ public class ApiGetRepositoriesTest {
         String token = Utils.getToken();
         createRepository.addHeader("authorization", basicAuth(login, token));
         createRepository.addHeader("content-type","application/json; charset=utf-8");
-        //createRepository.addHeader("accept","application/vnd.github.baptiste-preview+json");
         HttpClient client = HttpClientBuilder.create().build();
-
-        //JSONObject json = new JSONObject();
-        //json.put("name", "TEST13");
-        //var body = json.toString();
-        //createRepository.setEntity(new StringEntity(body));
 
         HttpResponse response =  client.execute(createRepository);
         var bytes = response.getEntity().getContent().readAllBytes();
