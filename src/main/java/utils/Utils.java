@@ -57,5 +57,18 @@ public class Utils {
         }
     }
 
+    public static String getEmptyToken(){
+        try {
+            InputStream input = new FileInputStream("src/test/resources/config.properties");
+            Properties properties = new Properties();
+            properties.load(input);
+            String login = properties.getProperty("emptyToken");
+            return login;
+        } catch (
+                IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
 }
 
