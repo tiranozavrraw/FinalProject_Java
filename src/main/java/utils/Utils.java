@@ -44,6 +44,18 @@ public class Utils {
             throw new RuntimeException(ex);
         }
     }
+    public static String getRepositoryName(){
+        try {
+            InputStream input = new FileInputStream("src/test/resources/config.properties");
+            Properties properties = new Properties();
+            properties.load(input);
+            String login = properties.getProperty("repositoryName");
+            return login;
+        } catch (
+                IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
 }
 
