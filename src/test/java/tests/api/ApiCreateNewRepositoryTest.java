@@ -1,5 +1,6 @@
 package tests.api;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -11,6 +12,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import utils.Utils;
@@ -33,13 +35,18 @@ public class ApiCreateNewRepositoryTest {
             String token = Utils.getToken();
             createRepository.addHeader("authorization", basicAuth(login, token));
             createRepository.addHeader("content-type","application/json");
-            String json = "{\"name\":\"TEST15\"}";
+            String json = "{\"name\":\"TEST21\"}";
             StringEntity entity = new StringEntity(json);
             createRepository.setEntity(entity);
 
             CloseableHttpResponse response = client.execute(createRepository);
-            var str = new String(response.getEntity().getContent().readAllBytes());
+            HttpEntity entity2 = response.getEntity();
+            String result = EntityUtils.toString(entity2);
+            var responseData = CreateRepositoryResponse.FromJson(result);
+//            var str = new String(response.getEntity().getContent().readAllBytes());
+            System.out.println("");
             Assertions.assertEquals(201, response.getStatusLine().getStatusCode());
+            Assertions.assertEquals("TEST21", responseData.name);
             client.close();
 
 
