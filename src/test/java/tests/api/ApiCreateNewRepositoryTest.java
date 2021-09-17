@@ -1,27 +1,19 @@
 package tests.api;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import tests.api.responseBody.CreateRepositoryResponse;
 import utils.Utils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 public class ApiCreateNewRepositoryTest {
         private String url = "https://api.github.com/user/repos";
@@ -35,7 +27,7 @@ public class ApiCreateNewRepositoryTest {
             String token = Utils.getToken();
             createRepository.addHeader("authorization", basicAuth(login, token));
             createRepository.addHeader("content-type","application/json");
-            String json = "{\"name\":\"TEST21\"}";
+            String json = "{\"name\":\""+ Utils.getRepositoryApiName() +"\"}";
             StringEntity entity = new StringEntity(json);
             createRepository.setEntity(entity);
 
@@ -43,10 +35,8 @@ public class ApiCreateNewRepositoryTest {
             HttpEntity entity2 = response.getEntity();
             String result = EntityUtils.toString(entity2);
             var responseData = CreateRepositoryResponse.FromJson(result);
-//            var str = new String(response.getEntity().getContent().readAllBytes());
-            System.out.println("");
             Assertions.assertEquals(201, response.getStatusLine().getStatusCode());
-            Assertions.assertEquals("TEST21", responseData.name);
+            Assertions.assertEquals(Utils.getRepositoryApiName(), responseData.name);
             client.close();
 
 

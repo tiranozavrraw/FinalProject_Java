@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import utils.Utils;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Base64;
 
 public class ApiDeleteRepositoryTest {
@@ -18,7 +19,7 @@ public class ApiDeleteRepositoryTest {
     @Test
     public void testDeleteRepository() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpDelete deleteRepository = new HttpDelete("https://api.github.com/repos/" + Utils.getLogin() + "/" + Utils.getRepositoryName());
+        HttpDelete deleteRepository = new HttpDelete(MessageFormat.format("https://api.github.com/repos/{0}/{1}", Utils.getLogin(), Utils.getRepositoryName()));
         String login = Utils.getLogin();
         String token = Utils.getToken();
         deleteRepository.addHeader("authorization", basicAuth(login, token));

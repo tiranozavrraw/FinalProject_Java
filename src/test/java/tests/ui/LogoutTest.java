@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import pages.LoggedInMainPage;
 import pages.LoginPage;
 import pages.MainPage;
+import utils.Utils;
 
 public class LogoutTest extends BaseTest {
     @Test
@@ -15,7 +16,7 @@ public class LogoutTest extends BaseTest {
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         loggedInMainPage.clickUserIcon();
         String signedInAs = loggedInMainPage.getSignedInAsText();
-        Assertions.assertEquals("tiranozavrraw", signedInAs);
+        Assertions.assertEquals(Utils.getLogin(), signedInAs);
         loggedInMainPage.clickSignOut();
         Assertions.assertTrue(mainPage.checkSignInButtonExist());
     }

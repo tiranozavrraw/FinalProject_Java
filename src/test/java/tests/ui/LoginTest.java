@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import pages.LoggedInMainPage;
 import pages.LoginPage;
 import pages.MainPage;
+import utils.Utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,7 +17,7 @@ public class LoginTest extends BaseTest{
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         loggedInMainPage.clickUserIcon();
         String signedInAs = loggedInMainPage.getSignedInAsText();
-        Assertions.assertEquals("tiranozavrraw", signedInAs);
+        Assertions.assertEquals(Utils.getLogin(), signedInAs);
     }
 
 }

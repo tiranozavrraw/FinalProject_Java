@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +17,10 @@ public class RepositoryPage extends AbstractPage{
     WebElement deleteRepositoryFieldConfirmation;
     @FindBy(xpath = "//span[contains(text(), \"I understand the consequences, delete this repository\")]")
     WebElement deleteRepositoryButtonConfirmation;
+    @FindBy(xpath = "//button[contains(text(), \"Confirm password\")]")
+    WebElement confirmPasswordButton;
+    @FindBy(id = "sudo_password")
+    WebElement passwordField;
 
     public RepositoryPage(WebDriver driver) {
         super(driver);
@@ -50,7 +55,16 @@ public class RepositoryPage extends AbstractPage{
             e.printStackTrace();
         }
         deleteRepositoryButtonConfirmation.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+        if(!getDriver().findElements( By.xpath( "//button[contains(text(), \"Confirm password\")]")).isEmpty()){
+            passwordField.sendKeys(Utils.getPassword());
+            confirmPasswordButton.click();
+        }
 
     }
 }

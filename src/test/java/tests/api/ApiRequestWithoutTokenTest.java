@@ -20,7 +20,7 @@ public class ApiRequestWithoutTokenTest {
     @Test
     public void testGetRepositoriesWithoutToken() throws IOException {
 
-        HttpGet createRepository = new HttpGet("https://api.github.com/users/tiranozavrraw/repos");
+        HttpGet createRepository = new HttpGet("https://api.github.com/users/"+ Utils.getLogin() +"/repos");
         HttpClient client = HttpClientBuilder.create().build();
 
 
@@ -40,7 +40,7 @@ public class ApiRequestWithoutTokenTest {
         String token = Utils.getEmptyToken();
         createRepository.addHeader("authorization", basicAuth(login, token));
         createRepository.addHeader("content-type","application/json");
-        String json = "{\"name\":\"TEST15\"}";
+        String json = "{\"name\":\""+ Utils.getRepositoryAlwaysExistName() +"\"}";
         StringEntity entity = new StringEntity(json);
         createRepository.setEntity(entity);
 

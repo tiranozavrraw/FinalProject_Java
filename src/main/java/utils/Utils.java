@@ -49,7 +49,7 @@ public class Utils {
             InputStream input = new FileInputStream("src/test/resources/config.properties");
             Properties properties = new Properties();
             properties.load(input);
-            String login = properties.getProperty("repositoryName");
+            String login = properties.getProperty("repositoryNameForCreateDelete");
             return login;
         } catch (
                 IOException ex) {
@@ -63,6 +63,32 @@ public class Utils {
             Properties properties = new Properties();
             properties.load(input);
             String login = properties.getProperty("emptyToken");
+            return login;
+        } catch (
+                IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static String getRepositoryAlwaysExistName(){
+        try {
+            InputStream input = new FileInputStream("src/test/resources/config.properties");
+            Properties properties = new Properties();
+            properties.load(input);
+            String login = properties.getProperty("repositoryNameAlwaysExist");
+            return login;
+        } catch (
+                IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static String getRepositoryApiName(){
+        try {
+            InputStream input = new FileInputStream("src/test/resources/config.properties");
+            Properties properties = new Properties();
+            properties.load(input);
+            String login = properties.getProperty("repositoryNameForCreateDeleteApi");
             return login;
         } catch (
                 IOException ex) {

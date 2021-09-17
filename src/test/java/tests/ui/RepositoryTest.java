@@ -3,6 +3,7 @@ package tests.ui;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pages.*;
+import utils.Utils;
 
 public class RepositoryTest extends BaseTest{
 
@@ -19,7 +20,7 @@ public class RepositoryTest extends BaseTest{
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         loggedInMainPage.clickNewRepositoryButton();
         CreateRepositoryPage createRepositoryPage = new CreateRepositoryPage(driver);
-        createRepositoryPage.enterRepositoryName("TEST11");
+        createRepositoryPage.enterRepositoryName(Utils.getRepositoryName());
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -32,7 +33,7 @@ public class RepositoryTest extends BaseTest{
             e.printStackTrace();
         }
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
-        Assertions.assertEquals("TEST11", repositoryCodePage.getRepositoryName());
+        Assertions.assertEquals(Utils.getRepositoryName(), repositoryCodePage.getRepositoryName());
     }
 
     @Test
@@ -53,12 +54,12 @@ public class RepositoryTest extends BaseTest{
             e.printStackTrace();
         }
         RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
-        repositoriesPage.findAndOpenRepository("TEST11");
+        repositoriesPage.findAndOpenRepository(Utils.getRepositoryAlwaysExistName());
         RepositoryPage repositoryPage = new RepositoryPage(driver);
         repositoryPage.clickCode();
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
         String url = repositoryCodePage.clickCopyUrlButton();
-        Assertions.assertEquals("https://github.com/tiranozavrraw/TEST11.git", url);
+        Assertions.assertEquals("https://github.com/tiranozavrraw/" + Utils.getRepositoryAlwaysExistName() + ".git", url);
     }
 
     @Test
@@ -79,14 +80,14 @@ public class RepositoryTest extends BaseTest{
             e.printStackTrace();
         }
         RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
-        repositoriesPage.findAndOpenRepository("TEST11");
+        repositoriesPage.findAndOpenRepository(Utils.getRepositoryName());
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
-        Assertions.assertEquals("TEST11", repositoryCodePage.getRepositoryName());
+        Assertions.assertEquals(Utils.getRepositoryName(), repositoryCodePage.getRepositoryName());
         RepositoryPage repositoryPage = new RepositoryPage(driver);
         repositoryPage.clickSettings();
-        repositoryPage.DeleteRepository("TEST11");
+        repositoryPage.DeleteRepository(Utils.getRepositoryName());
         loggedInMainPage.clickYourRepositoryInUserMenu();
-        repositoriesPage.findRepository("TEST11");
+        repositoriesPage.findRepository(Utils.getRepositoryName());
         Assertions.assertEquals(0, repositoriesPage.getNumberOfSearchResults());
 
     }
