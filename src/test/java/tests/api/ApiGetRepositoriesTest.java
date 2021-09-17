@@ -1,30 +1,20 @@
 package tests.api;
 
-import net.minidev.json.JSONObject;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import tests.api.responseBody.CreateRepositoryResponse;
+import tests.api.responseBody.GetRepositoriesResponse;
 import utils.Utils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
-import java.util.List;
 
 public class ApiGetRepositoriesTest {
     private String url = "https://api.github.com/user/repos";
@@ -33,18 +23,20 @@ public class ApiGetRepositoriesTest {
     @Test
     public void testGetRepositories() throws IOException {
 
-        HttpGet createRepository = new HttpGet("https://api.github.com/users/tiranozavrraw/repos");
+        HttpGet getRepositories = new HttpGet("https://api.github.com/users/"+ Utils.getLogin() +"/repos");
         String login = Utils.getLogin();
         String token = Utils.getToken();
-        createRepository.addHeader("authorization", basicAuth(login, token));
-        createRepository.addHeader("content-type","application/json; charset=utf-8");
+        getRepositories.addHeader("authorization", basicAuth(login, token));
+        getRepositories.addHeader("content-type","application/json; charset=utf-8");
         HttpClient client = HttpClientBuilder.create().build();
 
-        HttpResponse response =  client.execute(createRepository);
-        var bytes = response.getEntity().getContent().readAllBytes();
-        String value = new String(bytes, "UTF-8");
+        HttpResponse response =  client.execute(getRepositories);
+        HttpEntity entity2 = response.getEntity();
+        String result = EntityUtils.toString(entity2);
+        var responseData = GetRepositoriesResponse.FromJson(result);
 
         Assertions.assertEquals(200, response.getStatusLine().getStatusCode());
+        Assertions.assertTrue(Arrays.stream(responseData).anyMatch(s->s.name.equals(Utils.getRepositoryAlwaysExistName())));
 
     }
 
@@ -58,10 +50,12 @@ public class ApiGetRepositoriesTest {
         HttpClient client = HttpClientBuilder.create().build();
 
         HttpResponse response =  client.execute(createRepository);
-        var bytes = response.getEntity().getContent().readAllBytes();
-        String value = new String(bytes, "UTF-8");
+        HttpEntity entity2 = response.getEntity();
+        String result = EntityUtils.toString(entity2);
+        var responseData = CreateRepositoryResponse.FromJson(result);
 
         Assertions.assertEquals(200, response.getStatusLine().getStatusCode());
+        Assertions.assertEquals(Utils.getRepositoryName(), responseData.name);
 
     }
 
