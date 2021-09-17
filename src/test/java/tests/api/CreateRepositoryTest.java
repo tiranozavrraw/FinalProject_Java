@@ -9,13 +9,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import tests.api.responseBody.CreateRepositoryResponse;
+import responseBody.CreateRepositoryResponse;
 import utils.Utils;
 
 import java.io.IOException;
 import java.util.Base64;
 
-public class ApiCreateNewRepositoryTest {
+public class CreateRepositoryTest {
         private String url = "https://api.github.com/user/repos";
         private String repositoryUri = "user/repos";
 

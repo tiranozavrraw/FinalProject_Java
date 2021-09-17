@@ -8,15 +8,15 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import tests.api.responseBody.CreateRepositoryResponse;
-import tests.api.responseBody.GetRepositoriesResponse;
+import responseBody.CreateRepositoryResponse;
+import responseBody.GetRepositoriesResponse;
 import utils.Utils;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
 
-public class ApiGetRepositoriesTest {
+public class GetRepositoriesTest {
     private String url = "https://api.github.com/user/repos";
     private String repositoryUri = "user/repos";
 

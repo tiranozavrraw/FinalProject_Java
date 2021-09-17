@@ -16,7 +16,7 @@ import utils.Utils;
 import java.io.IOException;
 import java.util.Base64;
 
-public class ApiRequestWithoutTokenTest {
+public class RequestWithoutTokenTest {
     @Test
     public void testGetRepositoriesWithoutToken() throws IOException {
 

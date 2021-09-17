@@ -1,4 +1,4 @@
-package tests.api.responseBody;
+package responseBody;
 
 public class Owner {
 

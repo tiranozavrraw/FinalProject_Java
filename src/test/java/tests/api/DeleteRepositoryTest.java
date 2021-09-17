@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Base64;
 
-public class ApiDeleteRepositoryTest {
+public class DeleteRepositoryTest {
     private String url = "https://api.github.com/user/repos";
     private String repositoryUri = "user/repos";
 
