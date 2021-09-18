@@ -20,11 +20,7 @@ public class Utils {
     }
 
     public static String getRepositoryName() {
-        return getConfigProperty("repositoryNameForCreateDelete");
-    }
-
-    public static String getEmptyToken() {
-        return getConfigProperty("emptyToken");
+        return getConfigProperty("repositoryNameForCreateDeleteUi");
     }
 
     public static String getRepositoryAlwaysExistName() {
