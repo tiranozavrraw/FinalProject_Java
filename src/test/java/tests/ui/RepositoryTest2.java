@@ -1,46 +1,22 @@
 package tests.ui;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.jupiter.api.Test;
 import pages.*;
 import utils.Utils;
 
-public class RepositoryTest extends BaseTest{
-    protected WebDriver driver;
+public class RepositoryTest2 extends BaseTest{
 
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
-
-    @Given("Sign in")
-    public void testSignIn(){
+    @Test
+    public void testCreateNewRepository(){
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = mainPage.open().clickSignInButton();
         loginPage.login();
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        loggedInMainPage.clickUserIconAndWailTillVisible();
-        String signedInAs = loggedInMainPage.getSignedInAsText();
-        Assertions.assertEquals(Utils.getLogin(), signedInAs);
-        loggedInMainPage.clickUserIcon();
-
-    }
-
-    @Then("Create repository")
-    public void testCreateNewRepository(){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         loggedInMainPage.clickNewRepositoryButton();
         CreateRepositoryPage createRepositoryPage = new CreateRepositoryPage(driver);
@@ -60,17 +36,42 @@ public class RepositoryTest extends BaseTest{
         Assertions.assertEquals(Utils.getRepositoryName(), repositoryCodePage.getRepositoryName());
     }
 
-    @And("Copy repository link")
+    @Test
     public void testCopyRepositoryLink() {
+        MainPage mainPage = new MainPage(driver);
+        LoginPage loginPage = mainPage.open().clickSignInButton();
+        loginPage.login();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
+        loggedInMainPage.clickYourRepositoryInUserMenu();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
+        repositoriesPage.findAndOpenRepository(Utils.getRepositoryAlwaysExistName());
         RepositoryPage repositoryPage = new RepositoryPage(driver);
         repositoryPage.clickCode();
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
         String url = repositoryCodePage.clickCopyUrlButton();
-        Assertions.assertEquals("https://github.com/" + Utils.getLogin() + "/" + Utils.getRepositoryName() + ".git", url);
+        Assertions.assertEquals("https://github.com/tiranozavrraw/" + Utils.getRepositoryAlwaysExistName() + ".git", url);
     }
 
-    @When("Find created repository in repositories list")
-    public void findCreatedRepository() {
+    @Test
+    public void findAndDeleteCreatedRepository() {
+        MainPage mainPage = new MainPage(driver);
+        LoginPage loginPage = mainPage.open().clickSignInButton();
+        loginPage.login();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         loggedInMainPage.clickYourRepositoryInUserMenu();
         try {
@@ -82,37 +83,12 @@ public class RepositoryTest extends BaseTest{
         repositoriesPage.findAndOpenRepository(Utils.getRepositoryName());
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
         Assertions.assertEquals(Utils.getRepositoryName(), repositoryCodePage.getRepositoryName());
-
-    }
-
-    @Then("Delete repository")
-    public void deleteCreatedRepository() {
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         RepositoryPage repositoryPage = new RepositoryPage(driver);
-        RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
         repositoryPage.clickSettings();
         repositoryPage.DeleteRepository(Utils.getRepositoryName());
-
-    }
-
-    @And("Repository is not displayed in repositories list")
-    public void checkRepositoryDeleted() {
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
         loggedInMainPage.clickYourRepositoryInUserMenu();
         repositoriesPage.findRepository(Utils.getRepositoryName());
         Assertions.assertEquals(0, repositoriesPage.getNumberOfSearchResults());
-    }
 
-    @Then("Sign out")
-    public void testSignOut() {
-        MainPage mainPage = new MainPage(driver);
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        loggedInMainPage.clickUserIconAndWailTillVisible();
-        String signedInAs = loggedInMainPage.getSignedInAsText();
-        Assertions.assertEquals(Utils.getLogin(), signedInAs);
-        loggedInMainPage.clickSignOut();
-        Assertions.assertTrue(mainPage.checkSignInButtonExist());
     }
-
 }

@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(glue = {"tests"}, features = "src/test/resources", plugin = {"pretty", "html:target/site/cucumber-pretty",
+@CucumberOptions(glue = {"tests"}, features = "src/test/resources", tags = "@UiTest", plugin = {"pretty", "html:target/site/cucumber-pretty",
         "json:target/cucumber.json"})
 
 public class RunCucumberTests {

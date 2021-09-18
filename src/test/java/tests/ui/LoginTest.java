@@ -15,7 +15,7 @@ public class LoginTest extends BaseTest{
         LoginPage loginPage = mainPage.open().clickSignInButton();
         loginPage.login();
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        loggedInMainPage.clickUserIcon();
+        loggedInMainPage.clickUserIconAndWailTillVisible();
         String signedInAs = loggedInMainPage.getSignedInAsText();
         Assertions.assertEquals(Utils.getLogin(), signedInAs);
     }

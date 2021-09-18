@@ -21,9 +21,13 @@ public class LoggedInMainPage extends AbstractPage{
         super(driver);
     }
 
-    public void clickUserIcon() {
+    public void clickUserIconAndWailTillVisible() {
         userIcon.click();
         waitUntilVisible(signedInAs);
+    }
+
+    public void clickUserIcon() {
+        userIcon.click();
     }
 
     public String getSignedInAsText() {
@@ -40,7 +44,7 @@ public class LoggedInMainPage extends AbstractPage{
     }
 
     public void clickYourRepositoryInUserMenu(){
-        clickUserIcon();
+        clickUserIconAndWailTillVisible();
         yourRepositoriesMenuItem.click();
 
     }
