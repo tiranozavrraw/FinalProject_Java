@@ -7,91 +7,46 @@ import java.util.Properties;
 
 public class Utils {
 
-    public static String getLogin(){
-    try {
-    InputStream input = new FileInputStream("src/test/resources/config.properties");
-        Properties properties = new Properties();
-        properties.load(input);
-        String login = properties.getProperty("login");
-        return login;
-    } catch (
-    IOException ex) {
-        throw new RuntimeException(ex);
-    }
-   }
-    public static String getPassword(){
-        try {
-            InputStream input = new FileInputStream("src/test/resources/config.properties");
-            Properties properties = new Properties();
-            properties.load(input);
-            String password = properties.getProperty("password");
-            return password;
-        } catch (
-                IOException ex) {
-            throw new RuntimeException(ex);
-        }
+    public static String getLogin() {
+        return getConfigProperty("login");
     }
 
-    public static String getToken(){
-        try {
-            InputStream input = new FileInputStream("src/test/resources/config.properties");
-            Properties properties = new Properties();
-            properties.load(input);
-            String login = properties.getProperty("token");
-            return login;
-        } catch (
-                IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-    public static String getRepositoryName(){
-        try {
-            InputStream input = new FileInputStream("src/test/resources/config.properties");
-            Properties properties = new Properties();
-            properties.load(input);
-            String login = properties.getProperty("repositoryNameForCreateDelete");
-            return login;
-        } catch (
-                IOException ex) {
-            throw new RuntimeException(ex);
-        }
+    public static String getPassword() {
+        return getConfigProperty("password");
     }
 
-    public static String getEmptyToken(){
-        try {
-            InputStream input = new FileInputStream("src/test/resources/config.properties");
-            Properties properties = new Properties();
-            properties.load(input);
-            String login = properties.getProperty("emptyToken");
-            return login;
-        } catch (
-                IOException ex) {
-            throw new RuntimeException(ex);
-        }
+    public static String getToken() {
+        return getConfigProperty("token");
     }
 
-    public static String getRepositoryAlwaysExistName(){
-        try {
-            InputStream input = new FileInputStream("src/test/resources/config.properties");
-            Properties properties = new Properties();
-            properties.load(input);
-            String login = properties.getProperty("repositoryNameAlwaysExist");
-            return login;
-        } catch (
-                IOException ex) {
-            throw new RuntimeException(ex);
-        }
+    public static String getRepositoryName() {
+        return getConfigProperty("repositoryNameForCreateDelete");
     }
 
-    public static String getRepositoryApiName(){
+    public static String getEmptyToken() {
+        return getConfigProperty("emptyToken");
+    }
+
+    public static String getRepositoryAlwaysExistName() {
+        return getConfigProperty("repositoryNameAlwaysExist");
+    }
+
+    public static String getRepositoryApiName() {
+        return getConfigProperty("repositoryNameForCreateDeleteApi");
+    }
+
+    public static String getBaseUrl() {
+        return getConfigProperty("baseUrl");
+    }
+
+    private static String getConfigProperty(String propertyKey) {
         try {
             InputStream input = new FileInputStream("src/test/resources/config.properties");
             Properties properties = new Properties();
             properties.load(input);
-            String login = properties.getProperty("repositoryNameForCreateDeleteApi");
-            return login;
-        } catch (
-                IOException ex) {
+            String propertyValue = properties.getProperty(propertyKey);
+            return propertyValue;
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
