@@ -16,10 +16,20 @@ public class CreateRepositoryPage extends AbstractPage{
 
     public void enterRepositoryName(String name){
         repositoryNameField.sendKeys(name);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickCreateRepository(){
         scrollTo(createRepositoryButton);
         createRepositoryButton.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

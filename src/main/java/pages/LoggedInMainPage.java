@@ -46,6 +46,11 @@ public class LoggedInMainPage extends AbstractPage{
     public void clickYourRepositoryInUserMenu(){
         clickUserIconAndWailTillVisible();
         yourRepositoriesMenuItem.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 }

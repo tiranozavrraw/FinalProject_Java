@@ -52,14 +52,16 @@ public class RepositoryApiTest {
         Assertions.assertEquals(204, gitHttpClient.getResponseHttpCode());
     }
 
-    @Given("Public repositories are available for non-logged in user")
+    @Given("Public repository is available for non-logged in user")
     public void testGetRepositoriesWithoutToken() {
         GitHttpClient gitHttpClient = new GitHttpClient(Utils.getBaseUrl());
         gitHttpClient.get("/users/" + Utils.getLogin() + "/repos");
 
-        gitHttpClient.execute();
+        var result = gitHttpClient.execute();
+        var responseData = RepositoryListResponse.FromJson(result);
 
         Assertions.assertEquals(200, gitHttpClient.getResponseHttpCode());
+        Assertions.assertTrue(Arrays.stream(responseData).anyMatch(s -> s.name.equals(Utils.getRepositoryAlwaysExistName())));
     }
 
     @Given("Repository is not created for not logged in user")

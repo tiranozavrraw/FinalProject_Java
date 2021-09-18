@@ -45,17 +45,7 @@ public class RepositoryUiTest {
         loggedInMainPage.clickNewRepositoryButton();
         CreateRepositoryPage createRepositoryPage = new CreateRepositoryPage(driver);
         createRepositoryPage.enterRepositoryName(Utils.getRepositoryName());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         createRepositoryPage.clickCreateRepository();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
         Assertions.assertEquals(Utils.getRepositoryName(), repositoryCodePage.getRepositoryName());
     }
@@ -73,11 +63,7 @@ public class RepositoryUiTest {
     public void findCreatedRepository() {
         LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
         loggedInMainPage.clickYourRepositoryInUserMenu();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
         repositoriesPage.findAndOpenRepository(Utils.getRepositoryName());
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
