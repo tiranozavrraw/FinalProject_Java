@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pages.*;
 import utils.Utils;
 
-public class RepositoryTest {
+public class RepositoryUiTest {
     protected WebDriver driver;
 
     @Before

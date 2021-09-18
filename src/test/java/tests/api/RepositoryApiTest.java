@@ -5,14 +5,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.jupiter.api.Assertions;
 import request.GitHttpClient;
-import responseBody.CreateRepositoryResponse;
-import responseBody.GetRepositoriesResponse;
+import responseBody.RepositoryResponse;
+import responseBody.RepositoryListResponse;
 import utils.Utils;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
 
-public class RepositoryTest {
+public class RepositoryApiTest {
 
     @Given("Repository is created")
     public void testCreateNewRepository() {
@@ -22,7 +22,7 @@ public class RepositoryTest {
         gitHttpClient.post("/user/repos", body);
 
         var result = gitHttpClient.execute();
-        var responseData = CreateRepositoryResponse.FromJson(result);
+        var responseData = RepositoryResponse.FromJson(result);
 
         Assertions.assertEquals(201, gitHttpClient.getResponseHttpCode());
         Assertions.assertEquals(Utils.getRepositoryApiName(), responseData.name);
@@ -35,7 +35,7 @@ public class RepositoryTest {
         gitHttpClient.get("/repos/" + Utils.getLogin() + "/" + Utils.getRepositoryApiName());
 
         var result = gitHttpClient.execute();
-        var responseData = CreateRepositoryResponse.FromJson(result);
+        var responseData = RepositoryResponse.FromJson(result);
 
         Assertions.assertEquals(200, gitHttpClient.getResponseHttpCode());
         Assertions.assertEquals(Utils.getRepositoryApiName(), responseData.name);
@@ -81,7 +81,7 @@ public class RepositoryTest {
         gitHttpClient.get("/users/" + Utils.getLogin() + "/repos");
 
         var result = gitHttpClient.execute();
-        var responseData = GetRepositoriesResponse.FromJson(result);
+        var responseData = RepositoryListResponse.FromJson(result);
 
         Assertions.assertEquals(200, gitHttpClient.getResponseHttpCode());
         Assertions.assertTrue(Arrays.stream(responseData).anyMatch(s -> s.name.equals(Utils.getRepositoryAlwaysExistName())));

@@ -6,11 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Date;
 
-public class GetRepositoriesResponse {
-    public static GetRepositoriesResponse[] FromJson(String json) {
+public class RepositoryListResponse {
+    public static RepositoryListResponse[] FromJson(String json) {
         ObjectMapper om = new ObjectMapper();
         try {
-            GetRepositoriesResponse[] myObjects = om.readValue(json, GetRepositoriesResponse[].class);
+            RepositoryListResponse[] myObjects = om.readValue(json, RepositoryListResponse[].class);
             return myObjects;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

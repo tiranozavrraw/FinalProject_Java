@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
-public class CreateRepositoryResponse {
+public class RepositoryResponse {
 
-        public static CreateRepositoryResponse FromJson(String json) {
+        public static RepositoryResponse FromJson(String json) {
             ObjectMapper om = new ObjectMapper();
             try {
-                return om.readValue(json, CreateRepositoryResponse.class);
+                return om.readValue(json, RepositoryResponse.class);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
