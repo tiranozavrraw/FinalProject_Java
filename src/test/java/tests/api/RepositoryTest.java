@@ -41,12 +41,12 @@ public class RepositoryTest {
         createRepository.addHeader("authorization", basicAuth(login, token));
         createRepository.addHeader("content-type", "application/json");
         String json = "{\"name\":\"" + Utils.getRepositoryApiName() + "\"}";
-        StringEntity entity = new StringEntity(json);
-        createRepository.setEntity(entity);
+        StringEntity stringEntity = new StringEntity(json);
+        createRepository.setEntity(stringEntity);
 
         CloseableHttpResponse response = client.execute(createRepository);
-        HttpEntity entity2 = response.getEntity();
-        String result = EntityUtils.toString(entity2);
+        HttpEntity responseEntity = response.getEntity();
+        String result = EntityUtils.toString(responseEntity);
         var responseData = CreateRepositoryResponse.FromJson(result);
         Assertions.assertEquals(201, response.getStatusLine().getStatusCode());
         Assertions.assertEquals(Utils.getRepositoryApiName(), responseData.name);
@@ -63,8 +63,8 @@ public class RepositoryTest {
         HttpClient client = HttpClientBuilder.create().build();
 
         HttpResponse response = client.execute(createRepository);
-        HttpEntity entity2 = response.getEntity();
-        String result = EntityUtils.toString(entity2);
+        HttpEntity responseEntity = response.getEntity();
+        String result = EntityUtils.toString(responseEntity);
         var responseData = CreateRepositoryResponse.FromJson(result);
 
         Assertions.assertEquals(200, response.getStatusLine().getStatusCode());
@@ -94,8 +94,6 @@ public class RepositoryTest {
 
 
         HttpResponse response = client.execute(createRepository);
-        var bytes = response.getEntity().getContent().readAllBytes();
-        String value = new String(bytes, StandardCharsets.UTF_8);
 
         Assertions.assertEquals(200, response.getStatusLine().getStatusCode());
 
@@ -114,7 +112,6 @@ public class RepositoryTest {
         createRepository.setEntity(entity);
 
         CloseableHttpResponse response = client.execute(createRepository);
-        var str = new String(response.getEntity().getContent().readAllBytes());
         Assertions.assertEquals(401, response.getStatusLine().getStatusCode());
         client.close();
 
@@ -132,8 +129,8 @@ public class RepositoryTest {
         HttpClient client = HttpClientBuilder.create().build();
 
         HttpResponse response = client.execute(getRepositories);
-        HttpEntity entity2 = response.getEntity();
-        String result = EntityUtils.toString(entity2);
+        HttpEntity responseEntity = response.getEntity();
+        String result = EntityUtils.toString(responseEntity);
         var responseData = GetRepositoriesResponse.FromJson(result);
 
         Assertions.assertEquals(200, response.getStatusLine().getStatusCode());
