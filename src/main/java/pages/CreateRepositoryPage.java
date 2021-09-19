@@ -4,13 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CreateRepositoryPage extends AbstractPage{
+public class CreateRepositoryPage extends BasePage{
     @FindBy(id = "repository_name")
-    WebElement repositoryNameField;
+    private WebElement repositoryNameField;
     @FindBy (xpath = "//form[@id='new_repository']//button[@type='submit']")
-    WebElement createRepositoryButton;
+    private WebElement createRepositoryButton;
     @FindBy(xpath = "//dd[contains(text(), \"is available.\")]")
-    WebElement nameIsAvailablePopUp;
+    private WebElement nameIsAvailablePopUp;
 
     public CreateRepositoryPage(WebDriver driver) {
         super(driver);
@@ -25,6 +25,6 @@ public class CreateRepositoryPage extends AbstractPage{
         scrollTo(createRepositoryButton);
         createRepositoryButton.click();
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(getDriver());
-        waitUntilVisible(repositoryCodePage.repositoryName);
+
     }
 }

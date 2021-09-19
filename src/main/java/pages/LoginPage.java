@@ -8,25 +8,25 @@ import utils.Utils;
 public class LoginPage extends AbstractPage{
 
     @FindBy(id = "login_field")
-    WebElement loginField;
+    private WebElement loginField;
 
     @FindBy(id = "password")
-    WebElement passwordFiled;
+    private WebElement passwordFiled;
 
     @FindBy(className = "js-sign-in-button")
-    WebElement signInButton;
+    private WebElement signInButton;
 
     protected LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public LoggedInMainPage login(){
+    public MainPage login(){
         loginField.sendKeys(Utils.getLogin());
         passwordFiled.sendKeys(Utils.getPassword());
         signInButton.click();
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(getDriver());
-        waitUntilVisible(loggedInMainPage.userIcon);
+        MainPage mainPage = new MainPage(getDriver());
+        waitUntilVisible(mainPage.userIcon);
 
-        return loggedInMainPage;
+        return mainPage;
     }
 }

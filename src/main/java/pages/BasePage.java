@@ -4,22 +4,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-
-public class LoggedInMainPage extends AbstractPage{
+public abstract class BasePage extends AbstractPage{
     @FindBy(className = "js-feature-preview-indicator-container")
-    WebElement userIcon;
+    protected WebElement userIcon;
     @FindBy(xpath = "//a/strong")
-    WebElement signedInAs;
-    @FindBy(xpath = "//a[contains(@data-hydro-click,'NEW_REPOSITORY_BUTTON')]")
-    WebElement newRepositoryButton;
+    protected WebElement signedInAs;
     @FindBy(xpath = "//a[contains(@data-hydro-click, \"YOUR_REPOSITORIES\")]")
-    WebElement yourRepositoriesMenuItem;
+    protected WebElement yourRepositoriesMenuItem;
     @FindBy(xpath = "//button[contains(@data-hydro-click, \"SIGN_OUT\")]")
-    WebElement signOut;
-    @FindBy (xpath = "//div[contains(., \"was successfully deleted.\")]/button")
-    WebElement repositoryDeletedMessage;
+    protected WebElement signOut;
 
-    public LoggedInMainPage(WebDriver driver) {
+    protected BasePage(WebDriver driver) {
         super(driver);
     }
 
@@ -34,11 +29,6 @@ public class LoggedInMainPage extends AbstractPage{
 
     public String getSignedInAsText() {
         return signedInAs.getText();
-    }
-
-    public CreateRepositoryPage clickNewRepositoryButton() {
-        newRepositoryButton.click();
-        return new CreateRepositoryPage(getDriver());
     }
 
     public void clickSignOut(){

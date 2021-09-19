@@ -4,28 +4,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class MainPage extends AbstractPage{
-    private final String mainPage = "https://github.com/";
 
-    @FindBy(xpath = "//*[contains(text(),'Sign in')]")
-    WebElement signInButton;
+public class MainPage extends BasePage{
+    @FindBy(xpath = "//a[contains(@data-hydro-click,'NEW_REPOSITORY_BUTTON')]")
+    private WebElement newRepositoryButton;
+    @FindBy (xpath = "//div[contains(., \"was successfully deleted.\")]/button")
+    private WebElement repositoryDeletedMessage;
 
     public MainPage(WebDriver driver) {
         super(driver);
     }
-
-    public MainPage open() {
-        openUrl(mainPage);
-        return this;
+    public void waitRepositoryDeletedMessage() {
+        waitUntilVisible(repositoryDeletedMessage);
     }
 
-    public Boolean checkSignInButtonExist() {
-        return signInButton.isDisplayed();
+
+    public CreateRepositoryPage clickNewRepositoryButton() {
+        newRepositoryButton.click();
+        return new CreateRepositoryPage(getDriver());
     }
 
-    public LoginPage clickSignInButton() {
-        signInButton.click();
-        LoginPage loginPage = new LoginPage(getDriver());
-        return loginPage;
-    }
 }

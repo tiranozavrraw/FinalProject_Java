@@ -28,21 +28,21 @@ public class RepositoryUiTest {
 
     @Given("Sign in")
     public void testSignIn(){
-        MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = mainPage.open().clickSignInButton();
+        StartPage startPage = new StartPage(driver);
+        LoginPage loginPage = startPage.open().clickSignInButton();
         loginPage.login();
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        loggedInMainPage.clickUserIconAndWailTillVisible();
-        String signedInAs = loggedInMainPage.getSignedInAsText();
+        MainPage mainPage = new MainPage(driver);
+        mainPage.clickUserIconAndWailTillVisible();
+        String signedInAs = mainPage.getSignedInAsText();
         Assertions.assertEquals(Utils.getLogin(), signedInAs);
-        loggedInMainPage.clickUserIcon();
+        mainPage.clickUserIcon();
 
     }
 
     @Then("Create repository")
     public void testCreateNewRepository(){
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        loggedInMainPage.clickNewRepositoryButton();
+        MainPage mainPage = new MainPage(driver);
+        mainPage.clickNewRepositoryButton();
         CreateRepositoryPage createRepositoryPage = new CreateRepositoryPage(driver);
         createRepositoryPage.enterRepositoryName(Utils.getRepositoryName());
         createRepositoryPage.clickCreateRepository();
@@ -61,11 +61,11 @@ public class RepositoryUiTest {
 
     @When("Find created repository in repositories list")
     public void findCreatedRepository() {
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        loggedInMainPage.clickYourRepositoryInUserMenu();
+        MainPage mainPage = new MainPage(driver);
+        mainPage.clickYourRepositoryInUserMenu();
 
-        RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
-        repositoriesPage.findAndOpenRepository(Utils.getRepositoryName());
+        RepositoryListPage repositoryListPage = new RepositoryListPage(driver);
+        repositoryListPage.findAndOpenRepository(Utils.getRepositoryName());
         RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
         Assertions.assertEquals(Utils.getRepositoryName(), repositoryCodePage.getRepositoryName());
 
@@ -73,32 +73,34 @@ public class RepositoryUiTest {
 
     @Then("Delete repository")
     public void deleteCreatedRepository() {
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
+        MainPage mainPage = new MainPage(driver);
         RepositoryPage repositoryPage = new RepositoryPage(driver);
-        RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
+        RepositoryListPage repositoryListPage = new RepositoryListPage(driver);
         repositoryPage.clickSettings();
-        repositoryPage.DeleteRepository(Utils.getRepositoryName());
+        RepositorySettings repositorySettings = new RepositorySettings(driver);
+        repositorySettings.DeleteRepository(Utils.getRepositoryName());
+        mainPage.waitRepositoryDeletedMessage();
 
     }
 
     @And("Repository is not displayed in repositories list")
     public void checkRepositoryDeleted() {
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        RepositoriesPage repositoriesPage = new RepositoriesPage(driver);
-        loggedInMainPage.clickYourRepositoryInUserMenu();
-        repositoriesPage.findRepository(Utils.getRepositoryName());
-        Assertions.assertEquals(0, repositoriesPage.getNumberOfSearchResults());
+        MainPage mainPage = new MainPage(driver);
+        RepositoryListPage repositoryListPage = new RepositoryListPage(driver);
+        mainPage.clickYourRepositoryInUserMenu();
+        repositoryListPage.findRepository(Utils.getRepositoryName());
+        Assertions.assertEquals(0, repositoryListPage.getNumberOfSearchResults());
     }
 
     @Then("Sign out")
     public void testSignOut() {
+        StartPage startPage = new StartPage(driver);
         MainPage mainPage = new MainPage(driver);
-        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(driver);
-        loggedInMainPage.clickUserIconAndWailTillVisible();
-        String signedInAs = loggedInMainPage.getSignedInAsText();
+        mainPage.clickUserIconAndWailTillVisible();
+        String signedInAs = mainPage.getSignedInAsText();
         Assertions.assertEquals(Utils.getLogin(), signedInAs);
-        loggedInMainPage.clickSignOut();
-        Assertions.assertTrue(mainPage.checkSignInButtonExist());
+        mainPage.clickSignOut();
+        Assertions.assertTrue(startPage.checkSignInButtonExist());
     }
 
 }
