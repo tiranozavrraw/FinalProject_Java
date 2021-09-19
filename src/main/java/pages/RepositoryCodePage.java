@@ -21,6 +21,7 @@ public class RepositoryCodePage extends AbstractPage{
     }
 
     public String clickCopyUrlButton(){
+        waitUntilVisible(copyUrl);
         copyUrl.click();
         return getCopiedValueFromClipboard();
     }

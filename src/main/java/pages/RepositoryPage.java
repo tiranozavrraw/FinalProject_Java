@@ -21,6 +21,9 @@ public class RepositoryPage extends AbstractPage{
     WebElement confirmPasswordButton;
     @FindBy(id = "sudo_password")
     WebElement passwordField;
+    @FindBy(xpath = "//h2[contains(text(), \"Settings\")]")
+    WebElement settingMenuTitle;
+
 
     public RepositoryPage(WebDriver driver) {
         super(driver);
@@ -28,20 +31,11 @@ public class RepositoryPage extends AbstractPage{
 
     public void clickSettings() {
         settings.click();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitUntilVisible(settingMenuTitle);
     }
 
     public void clickCode() {
         code.click();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void DeleteRepository(String repositoryName){
@@ -49,22 +43,17 @@ public class RepositoryPage extends AbstractPage{
         scrollTo(deleteRepositoryButton);
         deleteRepositoryButton.click();
         deleteRepositoryFieldConfirmation.sendKeys(repositoryNameToEnter);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitUntilClickable(deleteRepositoryButtonConfirmation);
         deleteRepositoryButtonConfirmation.click();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         if(!getDriver().findElements( By.xpath( "//button[contains(text(), \"Confirm password\")]")).isEmpty()){
             passwordField.sendKeys(Utils.getPassword());
             confirmPasswordButton.click();
         }
+        LoggedInMainPage loggedInMainPage = new LoggedInMainPage(getDriver());
+        waitUntilVisible(loggedInMainPage.repositoryDeletedMessage);
 
     }
+
+
 }

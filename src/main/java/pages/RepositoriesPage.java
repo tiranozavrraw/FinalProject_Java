@@ -15,6 +15,9 @@ public class RepositoriesPage extends AbstractPage{
     @FindBy(xpath = "//div[contains(@class, \"user-repo-search-results-summary\")]/strong[1]")
     WebElement numberOfSearchResults;
 
+    @FindBy(className = "user-repo-search-results-summary")
+    WebElement searchResults;
+
     public RepositoriesPage(WebDriver driver) {
         super(driver);
     }
@@ -25,21 +28,14 @@ public class RepositoriesPage extends AbstractPage{
 
     public void findRepository(String repositoryName) {
         repositorySearch.sendKeys(repositoryName);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitUntilVisible(searchResults);
     }
 
     public void findAndOpenRepository(String repositoryName) {
         findRepository(repositoryName);
         repositoryNameInSearchResults.click();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(getDriver());
+        waitUntilVisible(repositoryCodePage.repositoryName);
 
     }
 

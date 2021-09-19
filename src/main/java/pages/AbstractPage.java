@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -50,6 +51,13 @@ public abstract class AbstractPage {
 
     protected void waitUntilVisible(WebElement webElement){
         driverWait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+    protected void waitUntilClickable(WebElement webElement) {
+        driverWait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    protected void waitElementExist(By locator) {
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     protected void waitUntilNotHasClass(WebElement webElement, String className){

@@ -16,6 +16,8 @@ public class LoggedInMainPage extends AbstractPage{
     WebElement yourRepositoriesMenuItem;
     @FindBy(xpath = "//button[contains(@data-hydro-click, \"SIGN_OUT\")]")
     WebElement signOut;
+    @FindBy (xpath = "//div[contains(., \"was successfully deleted.\")]/button")
+    WebElement repositoryDeletedMessage;
 
     public LoggedInMainPage(WebDriver driver) {
         super(driver);
@@ -46,11 +48,6 @@ public class LoggedInMainPage extends AbstractPage{
     public void clickYourRepositoryInUserMenu(){
         clickUserIconAndWailTillVisible();
         yourRepositoriesMenuItem.click();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
     }
 }

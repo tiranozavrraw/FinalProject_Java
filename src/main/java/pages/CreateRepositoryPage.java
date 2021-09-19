@@ -9,6 +9,8 @@ public class CreateRepositoryPage extends AbstractPage{
     WebElement repositoryNameField;
     @FindBy (xpath = "//form[@id='new_repository']//button[@type='submit']")
     WebElement createRepositoryButton;
+    @FindBy(xpath = "//dd[contains(text(), \"is available.\")]")
+    WebElement nameIsAvailablePopUp;
 
     public CreateRepositoryPage(WebDriver driver) {
         super(driver);
@@ -16,20 +18,13 @@ public class CreateRepositoryPage extends AbstractPage{
 
     public void enterRepositoryName(String name){
         repositoryNameField.sendKeys(name);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitUntilVisible(nameIsAvailablePopUp);
     }
 
     public void clickCreateRepository(){
         scrollTo(createRepositoryButton);
         createRepositoryButton.click();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(getDriver());
+        waitUntilVisible(repositoryCodePage.repositoryName);
     }
 }
