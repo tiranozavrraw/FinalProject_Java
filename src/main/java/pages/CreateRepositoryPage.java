@@ -16,15 +16,16 @@ public class CreateRepositoryPage extends BasePage{
         super(driver);
     }
 
-    public void enterRepositoryName(String name){
+    public CreateRepositoryPage enterRepositoryName(String name){
         repositoryNameField.sendKeys(name);
         waitUntilVisible(nameIsAvailablePopUp);
+        return this;
     }
 
-    public void clickCreateRepository(){
+    public RepositoryCodePage clickCreateRepository(){
         scrollTo(createRepositoryButton);
         createRepositoryButton.click();
-        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(getDriver());
+        return new RepositoryCodePage(getDriver());
 
     }
 }

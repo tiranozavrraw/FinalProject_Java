@@ -11,11 +11,28 @@ public class MainPage extends BasePage{
     @FindBy (xpath = "//div[contains(., \"was successfully deleted.\")]/button")
     private WebElement repositoryDeletedMessage;
 
-    public MainPage(WebDriver driver) {
+    MainPage(WebDriver driver) {
         super(driver);
     }
-    public void waitRepositoryDeletedMessage() {
+
+    public static MainPage currentPage(WebDriver driver) {
+        MainPage mainPage = new MainPage(driver);
+        return mainPage;
+    }
+
+    public MainPage openYourRepositoryInUserMenu() {
+        super.clickYourRepositoriesInUserMenu();
+        return this;
+    }
+
+    public MainPage clickUserIcon() {
+        super.clickUserIcon();
+        return this;
+    }
+
+    public MainPage waitRepositoryDeletedMessage() {
         waitUntilVisible(repositoryDeletedMessage);
+        return this;
     }
 
 
@@ -23,5 +40,6 @@ public class MainPage extends BasePage{
         newRepositoryButton.click();
         return new CreateRepositoryPage(getDriver());
     }
+
 
 }

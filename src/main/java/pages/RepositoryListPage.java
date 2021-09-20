@@ -26,15 +26,16 @@ public class RepositoryListPage extends BasePage{
         return Integer.parseInt(numberOfSearchResults.getText());
     }
 
-    public void findRepository(String repositoryName) {
+    public RepositoryListPage findRepository(String repositoryName) {
         repositorySearch.sendKeys(repositoryName);
         waitUntilVisible(searchResults);
+        return this;
     }
 
-    public void findAndOpenRepository(String repositoryName) {
+    public RepositoryCodePage findAndOpenRepository(String repositoryName) {
         findRepository(repositoryName);
         repositoryNameInSearchResults.click();
-        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(getDriver());
+        return new RepositoryCodePage(getDriver());
 
 
     }

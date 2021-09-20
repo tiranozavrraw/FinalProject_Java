@@ -18,26 +18,34 @@ public abstract class BasePage extends AbstractPage{
         super(driver);
     }
 
-    public void clickUserIconAndWailTillVisible() {
+    public BasePage clickUserIconAndWailTillVisible() {
         userIcon.click();
         waitUntilVisible(signedInAs);
+        return this;
     }
 
-    public void clickUserIcon() {
+    public BasePage clickUserIcon() {
         userIcon.click();
+        return this;
     }
 
     public String getSignedInAsText() {
         return signedInAs.getText();
     }
 
-    public void clickSignOut(){
+    public StartPage clickSignOut(){
         signOut.click();
+        return new StartPage(getDriver());
     }
 
-    public void clickYourRepositoryInUserMenu(){
+    public RepositoryListPage clickYourRepositoriesInUserMenu(){
         clickUserIconAndWailTillVisible();
         yourRepositoriesMenuItem.click();
+        return new RepositoryListPage(getDriver());
 
+    }
+
+    public void waitUntilUserIconVisible() {
+        waitUntilVisible(userIcon);
     }
 }

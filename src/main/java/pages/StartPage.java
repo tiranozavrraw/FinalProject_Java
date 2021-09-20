@@ -5,17 +5,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class StartPage extends AbstractPage{
-    private final String mainPage = "https://github.com/";
+    private final String startPageUrl = "https://github.com/";
 
     @FindBy(xpath = "//*[contains(text(),'Sign in')]")
     private WebElement signInButton;
 
-    public StartPage(WebDriver driver) {
+    protected StartPage(WebDriver driver) {
         super(driver);
     }
 
-    public StartPage open() {
-        openUrl(mainPage);
+    public static StartPage open(WebDriver driver) {
+        var startPage = new StartPage(driver);
+        return startPage.open();
+
+    }
+
+    private StartPage open() {
+        openUrl(startPageUrl);
         return this;
     }
 
@@ -25,7 +31,6 @@ public class StartPage extends AbstractPage{
 
     public LoginPage clickSignInButton() {
         signInButton.click();
-        LoginPage loginPage = new LoginPage(getDriver());
-        return loginPage;
+        return new LoginPage(getDriver());
     }
 }

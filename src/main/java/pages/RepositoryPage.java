@@ -12,19 +12,23 @@ public class RepositoryPage extends BasePage{
     @FindBy(xpath = "//span[contains(text(), \"Code\")]")
     private WebElement code;
 
+    public static RepositoryPage currentPage(WebDriver driver) {
+        return new RepositoryPage(driver);
+    }
 
 
-    public RepositoryPage(WebDriver driver) {
+    protected RepositoryPage(WebDriver driver) {
         super(driver);
     }
 
-    public void clickSettings() {
+    public RepositorySettings clickSettings() {
         settings.click();
-        RepositorySettings repositorySettings = new RepositorySettings(getDriver());
+        return new RepositorySettings(getDriver());
 
     }
-    public void clickCode() {
+    public RepositoryCodePage clickCode() {
         code.click();
+        return new RepositoryCodePage(getDriver());
     }
 
 

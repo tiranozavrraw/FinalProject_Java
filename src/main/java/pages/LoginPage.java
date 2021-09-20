@@ -25,8 +25,7 @@ public class LoginPage extends AbstractPage{
         passwordFiled.sendKeys(Utils.getPassword());
         signInButton.click();
         MainPage mainPage = new MainPage(getDriver());
-        waitUntilVisible(mainPage.userIcon);
-
+        mainPage.waitUntilUserIconVisible();
         return mainPage;
     }
 }

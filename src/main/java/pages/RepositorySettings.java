@@ -24,9 +24,7 @@ public class RepositorySettings extends BasePage{
     @FindBy(xpath = "//h2[contains(text(), \"Settings\")]")
     private WebElement settingMenuTitle;
 
-
-
-    public void DeleteRepository(String repositoryName){
+    public MainPage DeleteRepository(String repositoryName){
         String repositoryNameToEnter = Utils.getLogin() + "/" + repositoryName;
         scrollTo(deleteRepositoryButton);
         deleteRepositoryButton.click();
@@ -38,7 +36,7 @@ public class RepositorySettings extends BasePage{
             passwordField.sendKeys(Utils.getPassword());
             confirmPasswordButton.click();
         }
-        MainPage mainPage = new MainPage(getDriver());
+        return new MainPage(getDriver());
 
     }
 }

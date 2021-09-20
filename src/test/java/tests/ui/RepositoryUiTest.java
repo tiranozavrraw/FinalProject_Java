@@ -28,79 +28,74 @@ public class RepositoryUiTest {
 
     @Given("Sign in")
     public void testSignIn(){
-        StartPage startPage = new StartPage(driver);
-        LoginPage loginPage = startPage.open().clickSignInButton();
-        loginPage.login();
-        MainPage mainPage = new MainPage(driver);
-        mainPage.clickUserIconAndWailTillVisible();
-        String signedInAs = mainPage.getSignedInAsText();
+         String signedInAs = StartPage.open(driver)
+                .clickSignInButton()
+                .login()
+                .clickUserIconAndWailTillVisible()
+                .getSignedInAsText();
+
         Assertions.assertEquals(Utils.getLogin(), signedInAs);
-        mainPage.clickUserIcon();
 
     }
 
     @Then("Create repository")
     public void testCreateNewRepository(){
-        MainPage mainPage = new MainPage(driver);
-        mainPage.clickNewRepositoryButton();
-        CreateRepositoryPage createRepositoryPage = new CreateRepositoryPage(driver);
-        createRepositoryPage.enterRepositoryName(Utils.getRepositoryName());
-        createRepositoryPage.clickCreateRepository();
-        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
-        Assertions.assertEquals(Utils.getRepositoryName(), repositoryCodePage.getRepositoryName());
+        String createdRepositoryName = MainPage.currentPage(driver)
+                .clickUserIcon()
+                .clickNewRepositoryButton()
+                .enterRepositoryName(Utils.getRepositoryName())
+                .clickCreateRepository()
+                .getRepositoryName();
+
+        Assertions.assertEquals(Utils.getRepositoryName(), createdRepositoryName);
     }
 
     @And("Copy repository link")
     public void testCopyRepositoryLink() {
-        RepositoryPage repositoryPage = new RepositoryPage(driver);
-        repositoryPage.clickCode();
-        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
-        String url = repositoryCodePage.clickCopyUrlButton();
-        Assertions.assertEquals("https://github.com/" + Utils.getLogin() + "/" + Utils.getRepositoryName() + ".git", url);
+        String copiedUrl = RepositoryPage.currentPage(driver)
+                .clickCode()
+                .clickCopyUrlButton();
+
+        String expectedUrl = "https://github.com/" + Utils.getLogin() + "/" + Utils.getRepositoryName() + ".git";
+        Assertions.assertEquals(expectedUrl, copiedUrl);
     }
 
     @When("Find created repository in repositories list")
     public void findCreatedRepository() {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.clickYourRepositoryInUserMenu();
+        String createdRepositoryName = MainPage.currentPage(driver)
+                .clickYourRepositoriesInUserMenu()
+                .findAndOpenRepository(Utils.getRepositoryName())
+                .getRepositoryName();
 
-        RepositoryListPage repositoryListPage = new RepositoryListPage(driver);
-        repositoryListPage.findAndOpenRepository(Utils.getRepositoryName());
-        RepositoryCodePage repositoryCodePage = new RepositoryCodePage(driver);
-        Assertions.assertEquals(Utils.getRepositoryName(), repositoryCodePage.getRepositoryName());
-
+        Assertions.assertEquals(Utils.getRepositoryName(), createdRepositoryName);
     }
 
     @Then("Delete repository")
     public void deleteCreatedRepository() {
-        MainPage mainPage = new MainPage(driver);
-        RepositoryPage repositoryPage = new RepositoryPage(driver);
-        RepositoryListPage repositoryListPage = new RepositoryListPage(driver);
-        repositoryPage.clickSettings();
-        RepositorySettings repositorySettings = new RepositorySettings(driver);
-        repositorySettings.DeleteRepository(Utils.getRepositoryName());
-        mainPage.waitRepositoryDeletedMessage();
-
+        RepositoryPage.currentPage(driver)
+                .clickSettings()
+                .DeleteRepository(Utils.getRepositoryName())
+                .waitRepositoryDeletedMessage();
     }
 
     @And("Repository is not displayed in repositories list")
     public void checkRepositoryDeleted() {
-        MainPage mainPage = new MainPage(driver);
-        RepositoryListPage repositoryListPage = new RepositoryListPage(driver);
-        mainPage.clickYourRepositoryInUserMenu();
-        repositoryListPage.findRepository(Utils.getRepositoryName());
-        Assertions.assertEquals(0, repositoryListPage.getNumberOfSearchResults());
+        int searchResultsNumber = MainPage.currentPage(driver)
+                .clickYourRepositoriesInUserMenu()
+                .findRepository(Utils.getRepositoryName())
+                .getNumberOfSearchResults();
+
+        Assertions.assertEquals(0, searchResultsNumber);
     }
 
     @Then("Sign out")
     public void testSignOut() {
-        StartPage startPage = new StartPage(driver);
-        MainPage mainPage = new MainPage(driver);
-        mainPage.clickUserIconAndWailTillVisible();
-        String signedInAs = mainPage.getSignedInAsText();
-        Assertions.assertEquals(Utils.getLogin(), signedInAs);
-        mainPage.clickSignOut();
-        Assertions.assertTrue(startPage.checkSignInButtonExist());
+        Boolean isSignInExist = MainPage.currentPage(driver)
+                .clickUserIconAndWailTillVisible()
+                .clickSignOut()
+                .checkSignInButtonExist();
+
+        Assertions.assertTrue(isSignInExist);
     }
 
 }
