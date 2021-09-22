@@ -8,7 +8,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.*;
@@ -62,12 +61,12 @@ public class RepositoryUiTest {
 
     @And("Copy repository link")
     public void testCopyRepositoryLink() {
-        String copiedUrl = RepositoryPage.currentPage(driver)
+        String repositoryUrl = RepositoryPage.currentPage(driver)
                 .clickCode()
-                .clickCopyUrlButton();
+                .getUrlValue();
 
         String expectedUrl = "https://github.com/" + Utils.getLogin() + "/" + Utils.getRepositoryName() + ".git";
-        Assertions.assertEquals(expectedUrl, copiedUrl);
+        Assertions.assertEquals(expectedUrl, repositoryUrl);
     }
 
     @When("Find created repository in repositories list")

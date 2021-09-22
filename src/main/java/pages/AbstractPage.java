@@ -8,10 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
 
 public abstract class AbstractPage {
     private final static int TIMEOUT_IN_SECONDS = 30;
@@ -33,20 +29,6 @@ public abstract class AbstractPage {
         Actions action = new Actions(getDriver());
         action.moveToElement(webElement);
         action.perform();
-    }
-
-    protected String getCopiedValueFromClipboard(){
-        try {
-            String data = (String) Toolkit.getDefaultToolkit()
-                    .getSystemClipboard().getData(DataFlavor.stringFlavor);
-            return data;
-        } catch (UnsupportedFlavorException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     protected void waitUntilVisible(WebElement webElement){

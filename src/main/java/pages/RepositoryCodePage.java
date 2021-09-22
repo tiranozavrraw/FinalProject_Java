@@ -9,15 +9,16 @@ public class RepositoryCodePage extends BasePage{
     private WebElement copyUrl;
     @FindBy(xpath = "//strong[contains(@itemprop, \"name\")]/a")
     private WebElement repositoryName;
+    @FindBy(id = "empty-setup-clone-url")
+    private WebElement urlTextField;
 
     public String getRepositoryName() {
         return repositoryName.getText();
     }
 
-    public String clickCopyUrlButton(){
-        waitUntilVisible(copyUrl);
-        copyUrl.click();
-        return getCopiedValueFromClipboard();
+    public String getUrlValue(){
+        waitUntilVisible(urlTextField);
+        return urlTextField.getAttribute("value");
     }
 
     public RepositoryCodePage(WebDriver driver) {
