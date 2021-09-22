@@ -9,17 +9,30 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.*;
 import utils.Utils;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class RepositoryUiTest {
     protected WebDriver driver;
 
     @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        driver = new ChromeDriver();
+    public void setUp() throws MalformedURLException {
+        String remote_url_chrome = "http://localhost:4444/wd/hub";
+        //System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        //driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
+        driver = new RemoteWebDriver(new URL(remote_url_chrome), options);
         driver.manage().window().maximize();
+
     }
     @After
     public void tearDown() {
