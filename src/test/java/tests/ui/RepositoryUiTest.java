@@ -26,10 +26,7 @@ public class RepositoryUiTest {
         //System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         //driver = new ChromeDriver();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage", "--window-size=1920,1080");
         driver = new RemoteWebDriver(new URL(remote_url_chrome), options);
         driver.manage().window().maximize();
 
